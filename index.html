@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WorkHArdCore</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0b10;--card:rgba(255,255,255,.045);--bd:rgba(255,255,255,.09);--tx:#f2f2f7;--mu:#8b8b9a;--v:#8b5cf6;--c:#22d3ee;--in:rgba(255,255,255,.06);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-theme=light]{--bg:#f5f5fa;--card:rgba(255,255,255,.85);--bd:rgba(20,20,40,.1);--tx:#15151f;--mu:#6b6b7b;--in:rgba(20,20,40,.05)}
+*,*:before,*:after{box-sizing:inherit}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 Sora,system-ui,sans-serif;min-height:100vh;overflow-x:hidden;transition:background .3s}
+body:before{content:"";position:fixed;inset:0;background:radial-gradient(600px 300px at 85% -5%,rgba(139,92,246,.18),transparent),radial-gradient(500px 300px at 0 100%,rgba(34,211,238,.08),transparent);pointer-events:none}
+.app{display:grid;grid-template-columns:220px 1fr;min-height:100vh;position:relative}
+aside{padding:24px 16px;border-right:1px solid var(--bd);position:sticky;top:0;height:100vh}
+.logo{font-weight:700;font-size:18px;margin:0 8px 28px;background:linear-gradient(90deg,var(--v),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
+nav{display:flex;flex-direction:column;gap:4px}
+nav button{all:unset;cursor:pointer;padding:10px 12px;border-radius:12px;color:var(--mu);transition:.2s}
+nav button:hover{background:var(--in);color:var(--tx)}
+nav button.on{background:linear-gradient(90deg,rgba(139,92,246,.25),rgba(34,211,238,.08));color:var(--tx);box-shadow:inset 0 0 0 1px rgba(139,92,246,.4)}
+main{padding:28px;max-width:1100px;width:100%;min-width:0}
+header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:24px}
+h1{margin:0;font-size:clamp(22px,4vw,32px)}h2{font-size:16px;margin:0 0 12px}
+.mu{color:var(--mu);font-size:13px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:18px;backdrop-filter:blur(10px);min-width:0}
+.grid{display:grid;gap:14px;margin-bottom:14px}
+.g3{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.stat{transition:transform .2s,box-shadow .2s}.stat:hover{transform:translateY(-2px);box-shadow:0 0 24px rgba(139,92,246,.18)}
+.stat b{display:block;font-size:26px;margin-top:4px;overflow-wrap:anywhere}
+button.btn,.btn{cursor:pointer;border:0;border-radius:12px;padding:10px 16px;font:inherit;font-weight:600;color:#fff;background:linear-gradient(90deg,var(--v),#6d5cf6);transition:.2s}
+.btn:hover{box-shadow:0 0 18px rgba(139,92,246,.5)}.btn.ghost{background:var(--in);color:var(--tx)}.btn.danger{background:#e5484d}
+.ib{cursor:pointer;border:0;background:var(--in);color:var(--tx);border-radius:10px;width:34px;height:34px;font-size:15px}.ib:hover{background:rgba(139,92,246,.3)}
+input,textarea{width:100%;background:var(--in);border:1px solid var(--bd);border-radius:12px;padding:10px 12px;color:var(--tx);font:inherit}
+input:focus,textarea:focus,button:focus-visible{outline:2px solid var(--c);outline-offset:1px}
+form{display:grid;gap:10px}.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1 1 140px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.tabs button{cursor:pointer;border:1px solid var(--bd);background:transparent;color:var(--mu);border-radius:20px;padding:6px 14px;font:inherit}
+.tabs button.on{color:var(--tx);border-color:var(--v);background:rgba(139,92,246,.18)}
+.task{display:flex;gap:12px;align-items:flex-start;padding:14px;border-bottom:1px solid var(--bd)}.task:last-child{border:0}
+.task input[type=checkbox]{width:20px;height:20px;accent-color:var(--v);margin-top:2px;flex:none}
+.tb{flex:1;min-width:0;overflow-wrap:anywhere}.tt{font-weight:600;transition:.3s}
+.task.done .tt{text-decoration:line-through;color:var(--mu)}.task.done{animation:pop .35s}
+@keyframes pop{50%{background:rgba(34,211,238,.12)}}
+.ta{display:flex;gap:6px;flex:none}
+.bar{height:10px;border-radius:9px;background:var(--in);overflow:hidden;margin:6px 0 14px}
+.bar i{display:block;height:100%;width:0;border-radius:9px;background:linear-gradient(90deg,var(--v),var(--c));transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.bl{display:flex;justify-content:space-between}
+.empty{text-align:center;padding:34px 12px;color:var(--mu)}.empty big{display:block;font-size:34px}.empty p{margin:6px 0 14px}
+.status{font-size:20px;font-weight:700}
+svg{width:100%;height:auto;display:block}svg text{fill:var(--mu);font-size:9px;font-family:inherit}
+.view{display:none}.view.on{display:block}
+dialog{background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:18px;padding:20px;width:min(420px,92vw)}dialog::backdrop{background:rgba(0,0,0,.6)}
+.sp{display:flex;gap:8px;justify-content:flex-end;margin-top:14px}
+@media(max-width:760px){.app{display:block}aside{position:fixed;bottom:0;left:0;right:0;top:auto;height:auto;z-index:5;padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));border:0;border-top:1px solid var(--bd);background:var(--bg)}
+.logo{display:none}nav{flex-direction:row;justify-content:space-around}nav button{padding:8px 10px;font-size:12px;text-align:center}main{padding:18px 14px 90px}.task{flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<div class="app">
+<aside><div class="logo">WorkHArdCore</div>
+<nav id="nav"><button data-v="dash">🏠 Dashboard</button><button data-v="tasks">✅ Tasks</button><button data-v="ana">📊 Analytics</button><button data-v="set">⚙️ Settings</button></nav></aside>
+<main>
+<header><div><h1 id="hi">Good morning 👋</h1><div class="mu">Let's get things done. · <span id="dt"></span></div></div>
+<button class="ib" id="th" title="Toggle theme" aria-label="Toggle theme">🌙</button></header>
+
+<section class="view" id="v-dash">
+<div class="grid g3" id="stats"></div>
+<div class="grid g2"><div class="card"><h2>Progress</h2><div id="pb"></div></div>
+<div class="card"><h2>Productivity status</h2><div class="status" id="st"></div><p class="mu" id="sm"></p></div></div>
+<div class="card"><h2>Up next</h2><div id="next"></div></div>
+</section>
+
+<section class="view" id="v-tasks">
+<div class="card"><h2>Add a task</h2>
+<form id="af"><input id="at" placeholder="What needs doing?" maxlength="120" required aria-label="Task title">
+<textarea id="ad" rows="2" placeholder="Description (optional)" maxlength="300"></textarea>
+<div class="row"><input id="au" type="date" aria-label="Due date"><button class="btn" type="submit">＋ Add task</button></div></form></div>
+<div class="tabs" id="tabs"></div>
+<div class="card" id="list"></div>
+</section>
+
+<section class="view" id="v-ana">
+<div class="grid g3" id="gr"></div>
+<div class="grid g2"><div class="card"><h2>This week (Mon–Sun)</h2><div id="c1"></div></div><div class="card"><h2>This month</h2><div id="c2"></div></div></div>
+<div class="grid g2"><div class="card"><h2>Today's progress</h2><div id="c3"></div></div><div class="card"><h2>Task distribution</h2><div id="c4"></div></div></div>
+</section>
+
+<section class="view" id="v-set">
+<div class="card"><h2>Settings</h2><p class="mu">Everything is saved in this browser only.</p>
+<div class="row"><button class="btn ghost" id="th2">Switch theme</button><button class="btn danger" id="clr">Delete all data</button></div></div>
+</section>
+</main></div>
+
+<dialog id="ed"><form id="ef" method="dialog"><h2>Edit task</h2>
+<input id="et" maxlength="120" required aria-label="Title"><textarea id="ee" rows="3" maxlength="300" aria-label="Description"></textarea><input id="eu" type="date" aria-label="Due date">
+<div class="sp"><button type="button" class="btn ghost" id="ec">Cancel</button><button class="btn" type="submit">Save changes</button></div></form></dialog>
+<dialog id="cf"><h2 id="cft">Delete?</h2><p class="mu" id="cfm"></p><div class="sp"><button class="btn ghost" id="cn">Cancel</button><button class="btn danger" id="cy">Delete</button></div></dialog>
+
+<script>
+const $=s=>document.querySelector(s),K='whc.v1';
+let S=(()=>{try{const s=JSON.parse(localStorage.getItem(K));if(s&&Array.isArray(s.tasks))return s}catch(e){}return{tasks:[],theme:'dark'}})();
+let view='dash',filter='all',editId=null,delId=null,clearAll=false;
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
+const ymd=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const add=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const today=()=>ymd(new Date()),key=t=>t.due||t.created;
+const pct=(a,b)=>b?Math.round(a/b*100):0;
+// share of tasks dated within [from,to] (due date, else created date) that are completed
+function rate(from,to){const l=S.tasks.filter(t=>key(t)>=from&&key(t)<=to);const d=l.filter(t=>t.done).length;return{d,n:l.length,p:pct(d,l.length)}}
+const weekStart=()=>{const n=new Date(),k=(n.getDay()+6)%7;return add(n,-k)};
+const monthStart=()=>{const n=new Date();return new Date(n.getFullYear(),n.getMonth(),1)};
+function streaks(){const days=[...new Set(S.tasks.filter(t=>t.done&&t.doneAt).map(t=>t.doneAt))].sort();let best=0,run=0,prev=null;
+ days.forEach(d=>{run=prev&&ymd(add(prev,1))===d?run+1:1;best=Math.max(best,run);prev=new Date(d+'T00:00')});
+ const set=new Set(days);let cur=0,c=new Date();if(!set.has(ymd(c)))c=add(c,-1);while(set.has(ymd(c))){cur++;c=add(c,-1)}
+ const cnt={};S.tasks.forEach(t=>{if(t.done&&t.doneAt)cnt[t.doneAt]=(cnt[t.doneAt]||0)+1});
+ const top=Object.entries(cnt).sort((a,b)=>b[1]-a[1]||(a[0]<b[0]?1:-1))[0];return{cur,best,top}}
+function status(p){return p>=80?['🟢 Excellent!','Outstanding pace. Keep the momentum going.']:p>=65?['🔵 Good!','Solid progress. A few more wins and you are flying.']:p>=50?['🟡 Better!','You are past halfway. Keep stacking small wins.']:p>=30?['🟠 Needs Focus','Pick one task and finish it. Momentum starts small.']:['🔴 Poor','Every streak starts with one task. You can turn this around today.']}
+const fmt=d=>new Date(d+'T00:00').toLocaleDateString(undefined,{month:'short',day:'numeric'});
+
+function tasksHTML(list,msg){
+ if(!list.length)return msg;
+ return list.map(t=>`<div class="task ${t.done?'done':''}"><input type="checkbox" data-a="tg" data-id="${t.id}" ${t.done?'checked':''} aria-label="Complete ${esc(t.title)}"><div class="tb"><div class="tt">${esc(t.title)}</div>${t.desc?`<div class="mu">${esc(t.desc)}</div>`:''}${t.due?`<div class="mu">📅 Due ${fmt(t.due)}${!t.done&&t.due<today()?' · overdue':''}</div>`:''}</div><div class="ta"><button class="ib" data-a="ed" data-id="${t.id}" aria-label="Edit">✏️</button><button class="ib" data-a="dl" data-id="${t.id}" aria-label="Delete">🗑️</button></div></div>`).join('')}
+const emptyBox=(i,h,p,btn)=>`<div class="empty"><big>${i}</big><b>${h}</b><p>${p}</p>${btn?'<button class="btn" data-a="go">＋ Add task</button>':''}</div>`;
+
+function svgBars(vals,labels){const w=300,h=130;let s=`<svg viewBox="0 0 ${w} ${h+16}" role="img" aria-label="Bar chart">`;
+ [0,50,100].forEach(g=>{const y=h-g*1.1-4;s+=`<line x1="22" x2="${w}" y1="${y}" y2="${y}" stroke="currentColor" opacity=".12"/><text x="0" y="${y+3}">${g}%</text>`});
+ vals.forEach((v,i)=>{const bw=26,x=30+i*((w-36)/vals.length),bh=v.p*1.1;s+=`<rect x="${x}" y="${h-4-bh}" width="${bw}" height="${Math.max(bh,v.n?2:0)}" rx="5" fill="url(#g)"><title>${labels[i]}: ${v.p}% (${v.d}/${v.n})</title></rect><text x="${x+bw/2}" y="${h+10}" text-anchor="middle">${labels[i]}</text>`});
+ return s+`<defs><linearGradient id="g" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#8b5cf6"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs></svg>`}
+function svgLine(pts,len){const w=300,h=130,X=i=>26+i*((w-32)/(len-1));const v=pts.map((p,i)=>p.n?[X(i),h-4-p.p*1.1,i,p]:null).filter(Boolean);
+ let s=`<svg viewBox="0 0 ${w} ${h+16}" role="img" aria-label="Line chart">`;
+ [0,50,100].forEach(g=>{const y=h-g*1.1-4;s+=`<line x1="22" x2="${w}" y1="${y}" y2="${y}" stroke="currentColor" opacity=".12"/><text x="0" y="${y+3}">${g}%</text>`});
+ if(v.length>1)s+=`<polyline fill="none" stroke="#22d3ee" stroke-width="2" stroke-linejoin="round" points="${v.map(a=>a[0]+','+a[1]).join(' ')}"/>`;
+ v.forEach(a=>s+=`<circle cx="${a[0]}" cy="${a[1]}" r="3.5" fill="#8b5cf6"><title>Day ${a[2]+1}: ${a[3].p}%</title></circle>`);
+ [1,Math.ceil(len/2),len].forEach(d=>s+=`<text x="${X(d-1)}" y="${h+10}" text-anchor="middle">${d}</text>`);return s+'</svg>'}
+function ring(d,n,c1,lbl){const r=42,C=2*Math.PI*r,f=n?d/n*C:0;
+ return `<svg viewBox="0 0 120 120" style="max-width:190px;margin:auto" role="img" aria-label="${lbl}"><circle cx="60" cy="60" r="${r}" fill="none" stroke="currentColor" opacity=".1" stroke-width="12"/><circle cx="60" cy="60" r="${r}" fill="none" stroke="${c}" stroke-width="12" stroke-linecap="round" stroke-dasharray="${f} ${C}" transform="rotate(-90 60 60)"/><text x="60" y="58" text-anchor="middle" style="font-size:20px;font-weight:700;fill:var(--tx)">${pct(d,n)}%</text><text x="60" y="74" text-anchor="middle">${lbl}</text></svg>`}
+
+function growth(days){const t=new Date(),cs=ymd(add(t,-(days-1))),ps=ymd(add(t,-(2*days-1))),pe=ymd(add(t,-days));
+ const c=rate(cs,ymd(t)),p=rate(ps,pe);let g;
+ if(!p.n&&!c.n)g='No data yet';else if(!p.n)g='No previous period to compare';else if(!p.p)g=c.p?'📈 Up from 0%':'0% change';else{const x=Math.round((c.p-p.p)/p.p*100);g=(x>0?'📈 +':x<0?'📉 ':'➖ ')+x+'% growth'}
+ return `<div class="card stat"><span class="mu">${days===1?'Today vs yesterday':days+' days vs previous '+days}</span><b>${g}</b><div class="mu">Previous: ${p.n?p.p+'%':'–'} → Current: ${c.n?c.p+'%':'–'}</div></div>`}
+
+function render(){
+ document.documentElement.dataset.theme=S.theme;$('#th').textContent=S.theme==='dark'?'🌙':'☀️';
+ const hr=new Date().getHours();$('#hi').textContent=(hr<12?'Good morning':hr<18?'Good afternoon':'Good evening')+' 👋';
+ $('#dt').textContent=new Date().toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+ document.querySelectorAll('.view').forEach(e=>e.classList.toggle('on',e.id==='v-'+view));
+ document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===view));
+ const T=S.tasks,done=T.filter(t=>t.done).length,td=today(),ws=ymd(weekStart()),ms=ymd(monthStart());
+ const rt=rate(td,td),rw=rate(ws,ymd(add(weekStart(),6))),rm=rate(ms,ymd(new Date(new Date().getFullYear(),new Date().getMonth()+1,0)));
+ const sk=streaks();
+ const stat=(i,l,v)=>`<div class="card stat"><span class="mu">${i} ${l}</span><b>${v}</b></div>`;
+ $('#stats').innerHTML=stat('📋','Total tasks',T.length)+stat('✅','Completed',done)+stat('⏳','Pending',T.length-done)+stat('📅','Today',rt.p+'%')+stat('📈','This week',rw.p+'%')+stat('📊','This month',rm.p+'%')+stat('🔥','Current streak',sk.cur+(sk.cur===1?' day':' days'))+stat('🏆','Longest streak',sk.best+(sk.best===1?' day':' days'))+stat('🏅','Best day',sk.top?fmt(sk.top[0])+' ('+sk.top[1]+')':'–');
+ if(!$('#pb').children.length)$('#pb').innerHTML=[['Today','p0'],['This week','p1'],['This month','p2']].map(a=>`<div class="bl"><span>${a[0]}</span><b id="${a[1]}t"></b></div><div class="bar"><i id="${a[1]}"></i></div>`).join('');
+ [rt,rw,rm].forEach((r,i)=>{$('#p'+i+'t').textContent=r.p+'%'+(r.n?` (${r.d}/${r.n})`:'');$('#p'+i).style.width=r.p+'%'});
+ const base=rt.n?rt:rw,st=status(base.p);
+ if(!T.length){$('#st').textContent='✨ Waiting for your first task';$('#sm').textContent='Add a task to start tracking your productivity.'}
+ else{$('#st').textContent=st[0];$('#sm').textContent=st[1]+' ('+(rt.n?'today':'this week')+': '+base.p+'%)'}
+ const pend=T.filter(t=>!t.done).sort((a,b)=>(a.due||'9')<(b.due||'9')?-1:1).slice(0,5);
+ $('#next').innerHTML=tasksHTML(pend,T.length?emptyBox('🎉','All caught up','No pending tasks. Nice work.',1):emptyBox('✨','No tasks yet','Start by adding your first task.',1));
+ // tasks view
+ const cnt={all:T.length,pending:T.length-done,completed:done};
+ $('#tabs').innerHTML=['all','pending','completed'].map(f=>`<button data-a="f" data-f="${f}" class="${filter===f?'on':''}">${f[0].toUpperCase()+f.slice(1)} (${cnt[f]})</button>`).join('');
+ const fl=T.filter(t=>filter==='all'||(filter==='done'?t.done:filter==='completed'?t.done:!t.done)).sort((a,b)=>b.id-a.id);
+ $('#list').innerHTML=tasksHTML(fl,!T.length?emptyBox('✨','No tasks yet','Start by adding your first task.',1):filter==='completed'?emptyBox('☑️','Nothing completed yet','Finish a task and it will show up here.'):emptyBox('🎉','No pending tasks','Everything is done. Add something new?',1));
+ // analytics
+ $('#gr').innerHTML=growth(1)+growth(7)+growth(30);
+ if(!T.length){['#c1','#c2','#c3','#c4'].forEach(c=>$(c).innerHTML=emptyBox('📊','No analytics data','Add and complete tasks to see charts.'));return}
+ const wk=[0,1,2,3,4,5,6].map(i=>{const d=ymd(add(weekStart(),i));return rate(d,d)});
+ $('#c1').innerHTML=svgBars(wk,['Mon','Tue','Wed','Thu','Fri','Sat','Sun']);
+ const nd=new Date(new Date().getFullYear(),new Date().getMonth()+1,0).getDate();
+ $('#c2').innerHTML=svgLine(Array.from({length:nd},(_,i)=>{const d=ymd(new Date(new Date().getFullYear(),new Date().getMonth(),i+1));return rate(d,d)}),nd);
+ $('#c3').innerHTML=rt.n?ring(rt.d,rt.n,'#22d3ee',rt.d+' of '+rt.n+' done'):emptyBox('📅','Nothing scheduled today','Tasks due or created today appear here.');
+ $('#c4').innerHTML=ring(done,T.length,'#8b5cf6','completed')+`<div class="mu" style="text-align:center">✅ ${done} completed · ⏳ ${T.length-done} pending</div>`;
+}
+// actions
+$('#nav').onclick=e=>{const b=e.target.closest('button');if(b){view=b.dataset.v;render();scrollTo(0,0)}};
+const flip=()=>{S.theme=S.theme==='dark'?'light':'dark';save();render()};$('#th').onclick=$('#th2').onclick=flip;
+$('#af').onsubmit=e=>{e.preventDefault();const title=$('#at').value.trim();if(!title)return;
+ S.tasks.push({id:Date.now(),title,desc:$('#ad').value.trim(),due:$('#au').value||'',done:false,created:today(),doneAt:null});save();e.target.reset();render()};
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b)return;const a=b.dataset.a,id=+b.dataset.id,t=S.tasks.find(x=>x.id===id);
+ if(a==='tg')return;
+ if(a==='f'){filter=b.dataset.f;render()}
+ if(a==='go'){view='tasks';render();$('#at').focus()}
+ if(a==='ed'){editId=id;$('#et').value=t.title;$('#ee').value=t.desc;$('#eu').value=t.due;$('#ed').showModal()}
+ if(a==='dl'){delId=id;clearAll=false;$('#cft').textContent='Delete task?';$('#cfm').textContent='"'+t.title+'" will be removed permanently.';$('#cf').showModal()}});
+document.addEventListener('change',e=>{const b=e.target.closest('[data-a=tg]');if(!b)return;const t=S.tasks.find(x=>x.id===+b.dataset.id);
+ t.done=b.checked;t.doneAt=t.done?today():null;save();render()});
+$('#ef').onsubmit=e=>{e.preventDefault();const t=S.tasks.find(x=>x.id===editId);t.title=$('#et').value.trim()||t.title;t.desc=$('#ee').value.trim();t.due=$('#eu').value;save();$('#ed').close();render()};
+$('#ec').onclick=()=>$('#ed').close();$('#cn').onclick=()=>$('#cf').close();
+$('#cy').onclick=()=>{if(clearAll)S.tasks=[];else S.tasks=S.tasks.filter(t=>t.id!==delId);save();$('#cf').close();render()};
+$('#clr').onclick=()=>{clearAll=true;$('#cft').textContent='Delete all data?';$('#cfm').textContent='All tasks and history will be removed permanently.';$('#cf').showModal()};
+render();
+</script></body></html>
